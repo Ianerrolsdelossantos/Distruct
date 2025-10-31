@@ -1,0 +1,95 @@
+import java.util.*;
+
+class Process {
+    String pid;
+    int arrivalTime;
+    int burstTime;
+    int waitingTime;
+    int turnaroundTime;
+    boolean completed;
+
+    Process(String pid, int arrivalTime, int burstTime) {
+        this.pid = pid;
+        this.arrivalTime = arrivalTime;
+        this.burstTime = burstTime;
+        this.completed = false;
+    }
+}
+
+public class SJF_NonPreemptive {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of processes (min 5): ");
+        int n = sc.nextInt();
+        if (n < 5) {
+            System.out.println("Please enter at least 5 processes.");
+            return;
+        }
+
+        Process[] processes = new Process[n];
+
+        
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nEnter details for Process " + (i + 1) + ":");
+            System.out.print("Process ID: ");
+            String pid = sc.next();
+            System.out.print("Arrival Time: ");
+            int at = sc.nextInt();
+            System.out.print("Burst Time: ");
+            int bt = sc.nextInt();
+            processes[i] = new Process(pid, at, bt);
+        }
+
+       
+        int completed = 0;
+        int currentTime = 0;
+        ArrayList<String> ganttChart = new ArrayList<>();
+
+        while (completed < n) {
+            int idx = -1;
+            int minBurst = Integer.MAX_VALUE;
+
+            
+            for (int i = 0; i < n; i++) {
+                if (!processes[i].completed && processes[i].arrivalTime <= currentTime) {
+                    if (processes[i].burstTime < minBurst) {
+                        minBurst = processes[i].burstTime;
+                        idx = i;
+                    }
+                }
+            }
+
+            if (idx == -1) { 
+                currentTime++;
+            } else {
+                Process p = processes[idx];
+                ganttChart.add(p.pid);
+                currentTime += p.burstTime;
+                p.turnaroundTime = currentTime - p.arrivalTime;
+                p.waitingTime = p.turnaroundTime - p.burstTime;
+                p.completed = true;
+                completed++;
+            }
+        }
+
+        
+        double totalWT = 0, totalTAT = 0;
+        System.out.println("\nProcess\tArrival\tBurst\tWaiting\tTurnaround");
+        for (Process p : processes) {
+            totalWT += p.waitingTime;
+            totalTAT += p.turnaroundTime;
+            System.out.printf("%s\t%d\t%d\t%d\t%d\n", p.pid, p.arrivalTime, p.burstTime, p.waitingTime, p.turnaroundTime);
+        }
+
+        System.out.printf("\nAverage Waiting Time: %.2f", totalWT / n);
+        System.out.printf("\nAverage Turnaround Time: %.2f\n", totalTAT / n);
+
+       
+        System.out.println("\nGantt Chart:");
+        for (String pid : ganttChart) {
+            System.out.print("| " + pid + " ");
+        }
+        System.out.println("|");
+    }
+}
