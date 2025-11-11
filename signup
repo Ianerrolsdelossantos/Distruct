@@ -29,7 +29,7 @@ public class signup {
         System.out.print("Contact number: ");
         String contactNumber = input.nextLine();
 
-        // store user
+        
         UserDatabase.userDatabase.put(email, password);
 
         System.out.println("Sign-up complete! Account created for " + username + ".");
