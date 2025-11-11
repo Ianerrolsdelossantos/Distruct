@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class signup {
+	public class UserDatabase {
+
+	}
+
+	public void signUp() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("SIGN UP");
+        System.out.print("Email: ");
+        String email = input.nextLine();
+
+        if (UserDatabase.userDatabase.containsKey(email)) {
+            System.out.println("This email is already registered. Try logging in.");
+            return;
+        }
+
+        System.out.print("Username: ");
+        String username = input.nextLine();
+
+        System.out.print("Password: ");
+        String password = input.nextLine();
+
+        System.out.print("Address: ");
+        String address = input.nextLine();  
+
+        System.out.print("Contact number: ");
+        String contactNumber = input.nextLine();
+
+        // store user
+        UserDatabase.userDatabase.put(email, password);
+
+        System.out.println("Sign-up complete! Account created for " + username + ".");
+    }
+}
