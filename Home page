@@ -7,7 +7,7 @@ public class Homepage {
         Login login = new Login();
 
         while (true) {
-            System.out.println("\n==== MAIN MENU ====");
+            System.out.println(" MAIN MENU ");
             System.out.println("1. Sign Up");
             System.out.println("2. Log In");
             System.out.println("3. Exit");
@@ -25,7 +25,7 @@ public class Homepage {
                 case 1 -> signup.signUp();
                 case 2 -> login.logIn();
                 case 3 -> {
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting");
                     System.exit(0);
                 }
                 default -> System.out.println("Try again.");
