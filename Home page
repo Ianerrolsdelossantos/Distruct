@@ -1,0 +1,36 @@
+import java.util.Scanner;
+public class Homepage {
+	public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        SignUp signup = new SignUp();
+        Login login = new Login();
+
+        while (true) {
+            System.out.println("\n==== MAIN MENU ====");
+            System.out.println("1. Sign Up");
+            System.out.println("2. Log In");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice;
+            try {
+                choice = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong input. Please enter a number.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1 -> signup.signUp();
+                case 2 -> login.logIn();
+                case 3 -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+                default -> System.out.println("Try again.");
+            }
+        }
+    }
+}
+
