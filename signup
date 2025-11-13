@@ -1,18 +1,18 @@
 import java.util.Scanner;
 
 public class signup {
-	public class UserDatabase {
+    private Scanner input;
 
-	}
+    public signup(Scanner input) {
+        this.input = input;
+    }
 
-	public void signUp() {
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("SIGN UP");
+    public void signUp() {
+        System.out.println("=== SIGN UP ===");
         System.out.print("Email: ");
         String email = input.nextLine();
 
-        if (UserDatabase.userDatabase.containsKey(email)) {
+        if (userdatabase.userDatabase.containsKey(email)) {
             System.out.println("This email is already registered. Try logging in.");
             return;
         }
@@ -24,14 +24,15 @@ public class signup {
         String password = input.nextLine();
 
         System.out.print("Address: ");
-        String address = input.nextLine();  
+        String address = input.nextLine();
 
         System.out.print("Contact number: ");
         String contactNumber = input.nextLine();
 
-        
-        UserDatabase.userDatabase.put(email, password);
+        user newUser = new user(email, username, password, address, contactNumber);
+        userdatabase.userDatabase.put(email, newUser);
 
-        System.out.println("Sign-up complete! Account created for " + username + ".");
+        System.out.println("\n Sign-up complete! Welcome, " + newUser.getName() + ".");
+        System.out.println(" Please log in to continue to the homepage.");
     }
 }
