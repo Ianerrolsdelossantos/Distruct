@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class bookcategory {
+    public static List<book> books = new ArrayList<>();
+
+    static {
+        books.add(new book("Harry Potter", "J.K. Rowling", "Fantasy"));
+        books.add(new book("The Hobbit", "J.R.R. Tolkien", "Fantasy"));
+        books.add(new book("1984", "George Orwell", "Dystopian"));
+        books.add(new book("To Kill a Mockingbird", "Harper Lee", "Classic"));
+        books.add(new book("The Catcher in the Rye", "J.D. Salinger", "Classic"));
+    }
+}
