@@ -1,36 +1,79 @@
 import java.util.Scanner;
-public class Homepage {
-	public static void main(String[] args) {
 
+public class Homepage {
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        SignUp signup = new SignUp();
-        Login login = new Login();
+
+        signup signup = new signup(input);
+        login login = new login(input);
+        search search = new search(input);
+
+        user currentUser = null;
 
         while (true) {
-            System.out.println(" MAIN MENU ");
-            System.out.println("1. Sign Up");
-            System.out.println("2. Log In");
-            System.out.println("3. Exit");
-            System.out.print("Choose an option: ");
+            if (currentUser == null) {
+               
+                System.out.println("\n==== MAIN MENU ====");
+                System.out.println("1. Sign Up");
+                System.out.println("2. Log In");
+                System.out.println("3. Exit");
+                System.out.print("Choose an option: ");
 
-            int choice;
-            try {
-                choice = Integer.parseInt(input.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Wrong input. Please enter a number.");
-                continue;
-            }
-
-            switch (choice) {
-                case 1 -> signup.signUp();
-                case 2 -> login.logIn();
-                case 3 -> {
-                    System.out.println("Exiting");
-                    System.exit(0);
+                int choice;
+                try {
+                    choice = Integer.parseInt(input.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    continue;
                 }
-                default -> System.out.println("Try again.");
+
+                switch (choice) {
+                    case 1 -> signup.signUp();
+                    case 2 -> {
+                       
+                        currentUser = login.logIn();
+                       
+                        if (currentUser != null) {
+                            System.out.println("\nRedirecting to homepage...");
+                        }
+                    }
+                    case 3 -> {
+                        System.out.println("Exiting program...");
+                        input.close();
+                        System.exit(0);
+                    }
+                    default -> System.out.println("Invalid choice. Try again.");
+                }
+            } 
+            else {
+                
+                System.out.println("\n==== HOMEPAGE ====");
+                System.out.println("Welcome, " + currentUser.getName() + "!");
+                System.out.println("1. Search");
+                System.out.println("2. Add to Cart");
+                System.out.println("3. Wishlist");
+                System.out.println("4. Logout");
+                System.out.print("Choose an option: ");
+
+                int choice;
+                try {
+                    choice = Integer.parseInt(input.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    continue;
+                }
+
+                switch (choice) {
+                    case 1 -> search.searchBooks();
+                    case 2 -> System.out.println("Add to cart feature coming soon!");
+                    case 3 -> System.out.println("Wishlist feature coming soon!");
+                    case 4 -> {
+                        System.out.println("Logging out...");
+                        currentUser = null;
+                    }
+                    default -> System.out.println("Invalid choice. Try again.");
+                }
             }
         }
     }
 }
-
