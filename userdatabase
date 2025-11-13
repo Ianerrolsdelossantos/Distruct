@@ -1,6 +1,6 @@
 import java.util.HashMap;
+
 public class userdatabase {
-	public class UserDatabase {
-	    public static HashMap<String, String> userDatabase = new HashMap<>();
-	}
+    
+    public static HashMap<String, user> userDatabase = new HashMap<>();
 }
